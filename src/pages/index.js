@@ -1,19 +1,29 @@
 import React from "react";
 
-function index() {
+function Index() {
   console.log(process.env.NEXT_PUBLIC_API_URL);
-  const sendEmail = async () => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/sendEmail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify("Hello"),
-    });
-    const data = await res.json();
 
-    console.log(data);
+  const sendEmail = async () => {
+    try {
+      const res = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Use correct Content-Type
+        },
+        body: JSON.stringify({}), // Send an empty object or `{ emails: [...] }` if needed
+      });
+
+      if (!res.ok) {
+        throw new Error(`Server responded with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    }
   };
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <button
@@ -26,4 +36,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
