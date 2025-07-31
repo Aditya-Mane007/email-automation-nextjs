@@ -1,16 +1,15 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 function Index() {
-  console.log(process.env.NEXT_PUBLIC_API_URL);
-
   const sendEmail = async () => {
     try {
       const res = await fetch("/api/sendEmail", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Use correct Content-Type
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({}), // Send an empty object or `{ emails: [...] }` if needed
+        body: JSON.stringify({}),
       });
 
       if (!res.ok) {
@@ -18,7 +17,8 @@ function Index() {
       }
 
       const data = await res.json();
-      console.log(data);
+
+      toast.success("Emails Sent!");
     } catch (error) {
       console.error("Failed to send email:", error);
     }
