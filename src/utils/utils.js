@@ -51,3 +51,13 @@ export const sendEmail = async (email) => {
     ],
   });
 };
+
+const emails = [];
+
+export const addEmail = (emailText) => {
+  emails.push(emailText);
+};
+
+export const removeEmail = (emailText) => {
+  emails.filter((email) => email !== emailText);
+};
